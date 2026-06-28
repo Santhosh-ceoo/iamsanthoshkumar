@@ -6,13 +6,14 @@
    ════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
-  var REDUCED = false;
+  var REDUCED = false, COARSE = false;
   try { REDUCED = matchMedia('(prefers-reduced-motion:reduce)').matches; } catch (e) {}
+  try { COARSE = matchMedia('(pointer:coarse)').matches; } catch (e) {}
 
   var GSAP = window.gsap, ST = window.ScrollTrigger, lenis = null;
 
-  /* ── Lenis smooth scroll ── */
-  if (!REDUCED && window.Lenis) {
+  /* ── Lenis smooth scroll — desktop/fine-pointer only; phones keep native scroll ── */
+  if (!REDUCED && !COARSE && window.Lenis) {
     try {
       lenis = new Lenis({ duration: 1.1, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.6,
         easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); } });
@@ -40,6 +41,9 @@
     var foot = document.querySelector('.hero-foot');
     if (foot) GSAP.from(foot, { y: 30, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.6,
       onComplete: function () { foot.style.opacity = ''; } });
+
+    /* scroll-driven choreography — desktop / fine-pointer only (phones stay simple + native) */
+    if (!COARSE && matchMedia('(min-width:760px)').matches) {
 
     /* ── Hero photo: parallax depth on scroll ── */
     GSAP.utils.toArray('.hero-photo.pro').forEach(function (el) {
@@ -85,6 +89,8 @@
         for (var i = 0; i < shots.length; i++) shots[i].style.transform = 'skewY(' + (v * 0.14).toFixed(2) + 'deg)';
       });
     }
+
+    } /* end desktop-only choreography */
 
     /* recalc once fonts/images settle */
     window.addEventListener('load', function () { setTimeout(function () { ST.refresh(); }, 450); });
