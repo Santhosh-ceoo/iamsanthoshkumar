@@ -1,0 +1,25 @@
+# Build output / archives
+dist/
+*.zip
+
+# Working source images (not served)
+me.jpg
+me.ee.jpeg
+meeee.jpg
+me-hero.png
+
+# Previews & deliverables (not for the live site)
+hero-preview*.png
+card-front.png
+card-back.png
+business-card.pdf
+
+# Internal-only files
+palette-preview.html
+ADVENTURE-IMAGES.md
+
+# Tooling / OS
+node_modules/
+.npm/
+.DS_Store
+Thumbs.db

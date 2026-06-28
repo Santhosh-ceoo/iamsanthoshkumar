@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /palette-preview.html
+
+Sitemap: https://iamsanthoshkumar.com/sitemap.xml
