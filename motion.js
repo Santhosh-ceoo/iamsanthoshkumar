@@ -34,8 +34,10 @@
     /* ── Hero: masked "wipe-up" entrance for the name ── */
     var name = document.querySelector('.hero-name');
     if (name) {
-      GSAP.from(name, { clipPath: 'inset(0 0 110% 0)', webkitClipPath: 'inset(0 0 110% 0)',
-        y: 26, duration: 1.2, ease: 'power4.out', delay: 0.25 });
+      GSAP.fromTo(name,
+        { clipPath: 'inset(0 0 112% 0)', y: 26 },
+        { clipPath: 'inset(0 0 -8% 0)', y: 0, duration: 1.2, ease: 'power4.out', delay: 0.25,
+          onComplete: function () { name.style.clipPath = 'none'; name.style.webkitClipPath = 'none'; } });
     }
     /* hero foot drifts up softly */
     var foot = document.querySelector('.hero-foot');
