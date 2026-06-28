@@ -170,20 +170,25 @@ if(burger){
   addEventListener('keydown',e=>{if(e.key==='Escape')menu(false);});
 }
 
-/* ════════ CONTACT FORM (mailto) ════════ */
+/* ════════ CONTACT FORM (Netlify Forms, AJAX) ════════ */
 const form=document.querySelector('.cf');
 if(form){
   const btn=form.querySelector('.f-btn');
-  btn.addEventListener('click',()=>{
-    const name=(form.querySelector('input[type=text]')?.value||'').trim();
-    const email=(form.querySelector('input[type=email]')?.value||'').trim();
-    const topic=(form.querySelector('select')?.value)||'General';
-    const msg=(form.querySelector('textarea')?.value||'').trim();
-    if(!name||!email){btn.textContent='Add your name & email';setTimeout(()=>btn.textContent='Send message →',2000);return;}
-    const subj=encodeURIComponent(`[Portfolio] ${topic} — ${name}`);
-    const body=encodeURIComponent(`Name: ${name}\nEmail: ${email}\nInterested in: ${topic}\n\n${msg}`);
-    location.href=`mailto:mr.santhosh.ceo@gmail.com?subject=${subj}&body=${body}`;
-    btn.textContent='Opening your email…';setTimeout(()=>btn.textContent='Send message →',2500);
+  const status=$('cfStatus');
+  const say=(msg,ok)=>{ if(status){status.textContent=msg;status.className='cf-status '+(ok?'ok':'err');} };
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    const data=new FormData(form);
+    const name=(data.get('name')||'').toString().trim();
+    const email=(data.get('email')||'').toString().trim();
+    if(!name||!email){ say('Please add your name and email.',false); return; }
+    btn.textContent='Sending…'; say('',true);
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:new URLSearchParams(data).toString()})
+      .then(r=>{ if(!r.ok) throw new Error(); form.reset();
+        btn.textContent='Send message →'; say("Thanks — I'll reply within 24 hours.",true); })
+      .catch(()=>{ btn.textContent='Send message →';
+        say('Something went wrong. Please email mr.santhosh.ceo@gmail.com directly.',false); });
   });
 }
 

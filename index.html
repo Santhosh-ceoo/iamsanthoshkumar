@@ -289,21 +289,24 @@
         <div class="ci"><span>Availability</span><span>Open for work</span></div>
       </div>
     </div>
-    <form class="cf rev" novalidate>
+    <form class="cf rev" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+      <input type="hidden" name="form-name" value="contact"/>
+      <p hidden><label>Leave this empty: <input name="bot-field"/></label></p>
       <div class="cf-row">
-        <div class="fg"><label>Your name</label><input type="text" placeholder="Jane Doe"/></div>
-        <div class="fg"><label>Email</label><input type="email" placeholder="jane@company.com"/></div>
+        <div class="fg"><label>Your name</label><input type="text" name="name" placeholder="Jane Doe" required/></div>
+        <div class="fg"><label>Email</label><input type="email" name="email" placeholder="jane@company.com" required/></div>
       </div>
       <div class="fg"><label>I'm interested in</label>
-        <select>
+        <select name="interest">
           <option>AI Teaching for Students</option>
           <option>A Website for My Small Business</option>
           <option>AI Agents &amp; Automation</option>
           <option>Consulting &amp; Strategy</option>
           <option>Something else</option>
         </select></div>
-      <div class="fg"><label>Message</label><textarea placeholder="Tell me about the task that eats your time…"></textarea></div>
-      <button type="button" class="f-btn magnetic">Send message →</button>
+      <div class="fg"><label>Message</label><textarea name="message" placeholder="Tell me about the task that eats your time…"></textarea></div>
+      <button type="submit" class="f-btn magnetic">Send message →</button>
+      <p class="cf-status" id="cfStatus" role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
