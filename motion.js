@@ -34,10 +34,10 @@
     /* ── Hero: masked "wipe-up" entrance for the name ── */
     var name = document.querySelector('.hero-name');
     if (name) {
-      GSAP.fromTo(name,
-        { clipPath: 'inset(0 0 112% 0)', y: 26 },
-        { clipPath: 'inset(0 0 -8% 0)', y: 0, duration: 1.2, ease: 'power4.out', delay: 0.25,
-          onComplete: function () { name.style.clipPath = 'none'; name.style.webkitClipPath = 'none'; } });
+      /* bulletproof rise-fade: clearProps removes all inline styles on finish,
+         so the headline ALWAYS ends in its natural, fully-visible state */
+      GSAP.from(name, { yPercent: 16, opacity: 0, duration: 1.05, ease: 'power3.out',
+        delay: 0.2, clearProps: 'all' });
     }
     /* hero foot drifts up softly */
     var foot = document.querySelector('.hero-foot');
