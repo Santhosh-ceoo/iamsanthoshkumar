@@ -582,6 +582,19 @@ body.adv .avail p{font-family:var(--sf);font-weight:300}
   .tl-row{grid-template-columns:60px 1fr;gap:14px}.tl-row .org{grid-column:2}
 }
 
+/* ── PHONE FINE-TUNE: sub-page heroes + overflow safety ── */
+@media(max-width:600px){
+  .phero{padding:114px 22px 42px}
+  .phero h1{font-size:clamp(42px,13vw,120px);line-height:.9}
+  .phero .lead{font-size:16px;margin-top:20px}
+  .chapter h2{font-size:clamp(34px,9vw,80px)}
+  .crow{padding:20px 0}
+  .crow .val,.ci span:last-child{overflow-wrap:anywhere}
+  .avail{padding:26px}
+  .statusbar{gap:14px}
+  .tl-row .ti{font-size:clamp(19px,5.5vw,24px)}
+}
+
 .adv-card::before{background-image:var(--img)}
 .story::before{background-image:var(--img,none)}
 
